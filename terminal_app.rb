@@ -9,6 +9,8 @@
 ######## 6. RNG
 ######## 7. did we find treasure? name treasure
 ########8. monsters deal damage - heal to zero = game over
+#####################################################
+#####################################################
 
 def create_room
   "You are in a room. You see a door..."
@@ -18,7 +20,7 @@ def treasure
   ["emerald","ruby","soulsilver","heartgold","moon", "sun", "platinum", "diamond", "pearl", "crystal", "red", "blue"].sample
 end
 
-# RNG generator of doom
+### RNG Generator of DOOM ###
 def roll_dice(number_of_dice, size_of_dice)
   total = 0
   1.upto(number_of_dice) do
@@ -26,7 +28,7 @@ def roll_dice(number_of_dice, size_of_dice)
   end
   return total
 end
-# Dice Rolls
+############ DICE ROLLS ####################
 def has_monster?
         if roll_dice(2, 6) >= 8
             true
