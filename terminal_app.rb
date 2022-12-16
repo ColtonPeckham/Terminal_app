@@ -10,6 +10,58 @@
 ######## 7. did we find treasure? name treasure
 ########8. monsters deal damage - heal to zero = game over
 
+def create_room
+  "You are in a room. You see a door..."
+end
+
+def treasure
+  ["emerald","ruby","soulsilver","heartgold","moon", "sun", "platinum", "diamond", "pearl", "crystal", "red", "blue"].sample
+end
+
+# RNG generator of doom
+def roll_dice(number_of_dice, size_of_dice)
+  total = 0
+  1.upto(number_of_dice) do
+      total = total + rand(size_of_dice) + 1
+  end
+  return total
+end
+# Dice Rolls
+def has_monster?
+        if roll_dice(2, 6) >= 8
+            true
+        else 
+            false
+        end
+    end
+def has_escaped?
+  if roll_dice(2, 6) >= 11
+    true
+  else
+    false
+  end
+end
+def monster_attack?
+  if roll_dice(2, 6) >= 2
+    true
+  else
+    false
+  end
+end
+def defeat_monster?
+  if roll_dice(2, 6) >= 2
+    true
+  else
+    false
+  end
+end
+def has_treasure?
+  if roll_dice(2, 6) >= 1
+    true
+  else
+    false
+  end
+end
 
 ### VAriables
 
@@ -18,7 +70,7 @@ treasure_count = 0
 damage_points = 5
 escaped = false
 monster = false
-current_room = ""
+current_room = create_room
 
 # Introduction
 
@@ -51,6 +103,36 @@ print "What do you do? (#{actions.join(',')}) : "
     damage_points = damage_points - 1
     puts "Ouch! you got hit"
   end  
+# Player Commands
+  if player_action == "m"
+          current_room = create_room
+          number_of_rooms_explored =
+              number_of_rooms_explored + 1
+          monster = has_monster?
+          escaped = has_escaped?
+  elsif player_action == "s"
+      if has_treasure?
+              puts "WOW THATS SUPER COOL YOU FOUND #{treasure}!"
+              treasure_count = treasure_count + 1
+      else
+          puts "You searched, but you found NOTHING!"
+      end
+          #Rigged Condition - searching triggers monsters
+
+      if not monster
+              monster = has_monster?
+      end
+    elsif player_action == "f"
+      if defeat_monster?
+        monster = false
+        puts "you defeated the monster!"
+      else
+        puts "you missed..."
+      end
+    else
+      puts "Please follow directions, please try at least a little harder please..."
+    end
+    puts ""
 
   
 end
@@ -62,6 +144,8 @@ if damage_points > 0
   else
     puts "oh no! you didnt make it!"
     puts "you explored #{number_of_rooms_explored} rooms, before YOUR DOOM."
+    puts "You trid so hard, and got so far..."
+    puts "But in the end, it doesn't even matter..."
 end
 
 
